@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Results - Adaptive AI for HealthCare{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Query Info Bar -->
+    <div class="query-info-bar">
+        <div class="session-info">
+            <i class="fas fa-tag"></i>
+            <span>Session ID: {{ query_data.session_id[:8] }}</span>
+        </div>
+        <div class="model-info">
+            <span class="model-badge llm1-badge">
+                <i class="fas fa-brain"></i> LLM 1: {{ llm1_model }}
+            </span>
+            <span class="model-badge llm2-badge">
+                <i class="fas fa-search"></i> LLM 2: {{ llm2_model }}
+            </span>
+        </div>
+    </div>
+    <!-- Question Display -->
+    <div class="question-display">
+        <i class="fas fa-question-circle"></i>
+        <h3>{{ query_data.question }}</h3>
+    </div>
+    <!-- Dual LLM Output -->
+    <div class="llm-output-grid">
+        <!-- LLM 1 Panel -->
+        <div class="llm-panel llm1-panel">
+            <div class="panel-header">
+                <div class="llm-info">
+                    <i class="fas fa-brain"></i>
+                    <div>
+                        <h3>Base Answer (LLM 1)</h3>
+                        <p class="model-name">{{ llm1_model }}</p>
+                    </div>
+                </div>
+                <span class="status-badge status-primary">Primary Response</span>
+            </div>
+            <div class="panel-content">
+                <div class="answer-content">
+                    {{ query_data.llm1_response|safe }}
+                </div>
+            </div>
+        </div>
+        <!-- LLM 2 Panel -->
+        <div class="llm-panel llm2-panel">
+            <div class="panel-header">
+                <div class="llm-info">
+                    <i class="fas fa-search"></i>
+                    <div>
+                        <h3>Expert Verification (LLM 2)</h3>
+                        <p class="model-name">{{ llm2_model }}</p>
+                    </div>
+                </div>
+                <span class="status-badge status-success">{{ query_data.llm2_response['verification'] }}</span>
+            </div>
+            <div class="panel-content">
+                <!-- Detailed Explanation -->
+                <div class="explanation-content" style="margin-bottom:1em;">
+                    <h4 style="color:#6c36c9;"><i class="fas fa-info-circle"></i> Detailed Explanation</h4>
+                    <div style="font-size:1.1em;">
+                        {% if query_data.llm2_response['detailed explanation'] %}
+                            {{ query_data.llm2_response['detailed explanation'] | safe }}
+                        {% else %}
+                            <em>N/A</em>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Representative Quote Highlighted -->
+                <div style="margin:1em 0;">
+                    <h4><i class="fas fa-quote-right"></i> Representative Quote</h4>
+                    <blockquote style="color:#2e6ecf; font-weight:600; background:#f0f6ff; border-left:4px solid #2e6ecf; margin-bottom:0.5em; padding:0.5em 1em;">
+                        {% if query_data.llm2_response['representative quote'] %}
+                            {{ query_data.llm2_response['representative quote'] }}
+                        {% else %}
+                            <em>N/A</em>
+                        {% endif %}
+                    </blockquote>
+                </div>
+                <!-- Quoted Proof Highlighted -->
+                <div style="margin:1em 0;">
+                    <h4 style="color:#e02929;"><i class="fas fa-quote-right"></i> Quoted Proof</h4>
+                    <blockquote class="source-quote" style="color:#e02929; font-weight:500; border-left:4px solid #e02929; background:#fff3f3; padding:0.5em 1em;">
+                        {% if query_data.llm2_response['quoted proof'] %}
+                            {{ query_data.llm2_response['quoted proof'] }}
+                        {% else %}
+                            <em>N/A</em>
+                        {% endif %}
+                    </blockquote>
+                </div>
+                <!-- Citation: Color, Line Separation, Clickable -->
+                <div style="margin-bottom:1em;">
+                    <h4><i class="fas fa-link"></i> Citation</h4>
+                    {% if query_data.llm2_response['citations_list'] %}
+                        {% for item in query_data.llm2_response['citations_list'] %}
+                            <div style="color:#008060; margin-bottom:0.3em;">
+                                {% if item.url %}
+                                    <a href="{{ item.url }}" target="_blank" style="text-decoration:underline; color:#008060;">
+                                        {{ item.text }}
+                                    </a>
+                                {% else %}
+                                    {{ item.text }}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <em>N/A</em>
+                    {% endif %}
+                </div>
+                <!-- Consensus Summary -->
+                <div class="consensus-section">
+                    <h4><i class="fas fa-users"></i> Consensus Summary</h4>
+                    <div style="color:#222;">
+                        {% if query_data.llm2_response['consensus summary'] %}
+                            {{ query_data.llm2_response['consensus summary'] }}
+                        {% else %}
+                            <em>N/A</em>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

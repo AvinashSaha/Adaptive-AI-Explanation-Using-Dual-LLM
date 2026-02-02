@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Adaptive AI for HealthCare - Query Portal{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="hero-content">
+        <div class="hero-icon">
+            <i class="fas fa-stethoscope"></i>
+        </div>
+        <h2>Adaptive Explainability Framework</h2>
+        <p>Experience transparent AI healthcare with dual LLM verification</p>
+    </div>
+</section>
+
+<div class="container">
+    <div class="query-card">
+        <div class="card-header">
+            <i class="fas fa-question-circle"></i>
+            <h3>Select Your Health Query</h3>
+        </div>
+        
+        <form id="queryForm" action="{{ url_for('process') }}" method="POST">
+            <div class="form-group">
+    <label for="questionSelect"><i class="fas fa-question-circle"></i> Select Your Health Query</label>
+    <select name="question" id="questionSelect" class="form-control" required>
+        <option value="">-- Choose a question --</option>
+        {% for question in questions %}
+        <option value="{{ question }}">{{ question }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+            
+            <div class="submit-section">
+                <button type="submit" class="btn-primary" id="submitBtn">
+                    <i class="fas fa-robot"></i>
+                    Get AI Response
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="info-panel">
+        <div class="info-card">
+            <i class="fas fa-shield-alt"></i>
+            <h4>Dual LLM Verification</h4>
+            <p>Base answer + Expert verification for trustworthy results</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-file-medical"></i>
+            <h4>Evidence-Based Sources</h4>
+            <p>Every explanation includes peer-reviewed references</p>
+        </div>
+        <div class="info-card">
+            <i class="fas fa-user-shield"></i>
+            <h4>Privacy First</h4>
+            <p>No personal data collected. Anonymous session only.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Modal -->
+<div id="loadingModal" class="modal hidden">
+    <div class="modal-content">
+        <div class="loading-spinner">
+            <i class="fas fa-sync-alt fa-spin"></i>
+        </div>
+        <h3>Processing with AI</h3>
+        <p>Analyzing your query with dual LLMs...</p>
+        <div class="llm-status">
+            <div class="status-item">
+                <i class="fas fa-brain"></i>
+                <span>LLM 1: Generating Base Answer</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-search"></i>
+                <span>LLM 2: Verifying & Explaining</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

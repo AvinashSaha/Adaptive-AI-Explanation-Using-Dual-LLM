@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}AdaptiveAI Healthcare Assistant{% endblock %}
+
+{% block content %}
+<div class="hero">
+  <div class="hero-text">
+    <h1>AdaptiveAI Healthcare Assistant</h1>
+    <p class="lead">
+      A research prototype that delivers transparent, dual‑LLM health information
+      with explicit verification and evidence‑linked explanations.
+    </p>
+
+    <p>
+      This web application is part of an academic study on AI‑assisted healthcare
+      decision support. It uses two large language models: the first generates an
+      initial answer and the second independently reviews, critiques, and refines
+      that answer, highlighting uncertainties and citing peer‑reviewed sources.
+    </p>
+
+    <p>
+      No personal identifiers are collected. All interactions are anonymous and
+      used solely for usability and user‑experience evaluation in this study.
+    </p>
+
+    <div class="disclaimer">
+      <strong>Important:</strong> AdaptiveAI is a research tool and does
+      <strong>not</strong> provide medical diagnosis, treatment, or emergency
+      advice. Always consult a qualified healthcare professional for clinical
+      decisions.
+    </div>
+
+    <a href="{{ url_for('index') }}" class="primary-btn">
+      Proceed to Question Portal
+    </a>
+  </div>
+</div>
+{% endblock %}

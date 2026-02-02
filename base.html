@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Adaptive AI for HealthCare{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <i class="fas fa-brain"></i>
+            <h1>Adaptive AI for HealthCare</h1>
+        </div>
+        <nav class="nav-links">
+            <a href="{{ url_for('index') }}">
+                <i class="fas fa-home"></i> New Query
+            </a>
+        </nav>
+    </div>
+</header>
+
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Adaptive AI for HealthCare - Research Project KF7029 By Avinash Saha</p>
+        <p class="disclaimer">
+            <i class="fas fa-info-circle"></i>
+            This tool is for general well-being information only. Not a substitute for professional medical advice.
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
